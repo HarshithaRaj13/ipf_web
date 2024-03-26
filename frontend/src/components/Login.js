@@ -1,68 +1,111 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
+import { Button, Checkbox, Form, Input } from "antd";
+import image8 from "../assets/image8.jpg";
+// import image2 from "../assets/image2.jpg";
 
-import { useNavigate, Link } from "react-router-dom";
+const onFinish = (values) => {
+  console.log("Success:", values);
+};
 
-function Login() {
-  const history = useNavigate();
+const onFinishFailed = (errorInfo) => {
+  console.log("Failed:", errorInfo);
+};
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  async function submit(e) {
-    e.preventDefault();
-
-    try {
-      await axios
-        .post("http://localhost:8000/login", {
-          email,
-          password,
-        })
-        .then((res) => {
-          if (res.data == "exist") {
-            alert("User already exists");
-          } else if (res.data == "notexist") {
-            history("/home", { state: { id: email } });
-          }
-        })
-        .catch((e) => {
-          alert("wrong details");
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
+const Login = () => {
   return (
-    <div className="login">
-      <h1>Signup</h1>
-
-      <form action="POST">
-        <input
-          type="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          placeholder="Email"
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        flexDirection: "column",
+        backgroundImage: `url(${image8})`,
+        backgroundSize: "cover",
+      }}
+    >
+      {/* <div style={{ position: "absolute", top: 0, right: 0 }}>
+        <img
+          src={""}
+          alt="Side Image"
+          style={{ height: "100vh", maxWidth: "50vw" }}
         />
-        <input
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
+      </div> */}
+      <h1>Login Page</h1>
+
+      <Form
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        style={{
+          maxWidth: 1000,
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          padding: "50px",
+          borderRadius: "20px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: "Please input your username!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Please input your password!",
+            },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{
+            offset: 8,
+            span: 16,
           }}
-          placeholder="Password"
-        />
-        <input type="submit" onClick={submit} />
-      </form>
+        >
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
 
-      <br />
-      <p>OR</p>
-      <br />
-
-      <Link to="/">Login Page</Link>
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 10,
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+      <a href="/Signup">Go to Signup </a>
     </div>
   );
-}
+};
 
 export default Login;
