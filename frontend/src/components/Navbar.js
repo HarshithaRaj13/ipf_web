@@ -54,6 +54,12 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
+                    Python
+                  </a>
+                </li>
+
+                <li>
+                  <a className="dropdown-item" href="#">
                     Javascript
                   </a>
                 </li>
@@ -64,6 +70,19 @@ const Navbar = () => {
                   <a className="dropdown-item" href="#">
                     React.js
                   </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    Artificial Intelligence
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    Machine Learning
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#"></a>
                 </li>
               </ul>
             </li>
