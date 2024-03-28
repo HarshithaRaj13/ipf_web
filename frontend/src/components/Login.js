@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
+import axios from "axios"; // Add axios import
+import { useNavigate } from "react-router-dom"; // Add useHistory import
 import image8 from "../assets/image8.jpg";
-// import image2 from "../assets/image2.jpg";
-
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useNavigate(); // Initialize useHistory
+
+  const onFinish = async (values) => {
+    console.log("Success:", values);
+    try {
+      const res = await axios.post("http:/localhost:8000/login", {
+        email,
+        password,
+      });
+      if (res.data === "exist") {
+        history.push("/home", { state: { id: email } }); // Redirect to home page
+      } else if (res.data === "notexist") {
+        alert("User has not signed up");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Wrong details");
+    }
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <div
       style={{
@@ -24,13 +43,6 @@ const Login = () => {
         backgroundSize: "cover",
       }}
     >
-      {/* <div style={{ position: "absolute", top: 0, right: 0 }}>
-        <img
-          src={""}
-          alt="Side Image"
-          style={{ height: "100vh", maxWidth: "50vw" }}
-        />
-      </div> */}
       <h1>Login Page</h1>
 
       <Form
@@ -56,7 +68,7 @@ const Login = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="Username"
+          label="EmailId"
           name="username"
           rules={[
             {
@@ -65,7 +77,7 @@ const Login = () => {
             },
           ]}
         >
-          <Input />
+          <Input onChange={(e) => setEmail(e.target.value)} />
         </Form.Item>
 
         <Form.Item
@@ -78,7 +90,7 @@ const Login = () => {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password onChange={(e) => setPassword(e.target.value)} />
         </Form.Item>
 
         <Form.Item

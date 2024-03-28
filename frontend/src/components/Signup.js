@@ -1,4 +1,7 @@
 import React from "react";
+import { useState } from "react";
+import axios from "axios";
+// import { useHistory } from "react-router-dom";
 import { Button, Checkbox, Form, Input } from "antd";
 import image5 from "../assets/image5.jpg";
 
@@ -11,6 +14,21 @@ const onFinishFailed = (errorInfo) => {
 };
 
 const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function submit(e) {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:8000/signup", {
+        email,
+        password,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <div
       style={{
@@ -26,6 +44,7 @@ const Signup = () => {
       <div style={{ position: "absolute", top: 0, right: 0 }}></div>
       <h1>Signup Page</h1>
       <Form
+        method="Post"
         name="basic"
         labelCol={{
           span: 8,
@@ -43,7 +62,21 @@ const Signup = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item
+        <input
+          type="email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          placeholder="Password"
+        />
+        {/* <Form.Item
           label="Username"
           name="username"
           rules={[
@@ -54,9 +87,9 @@ const Signup = () => {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           label="Email ID"
           name="email"
           rules={[
@@ -67,9 +100,9 @@ const Signup = () => {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           label="Phone number"
           name="phoneNumber"
           rules={[
@@ -80,9 +113,9 @@ const Signup = () => {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           label="Address"
           name="address"
           rules={[
@@ -93,9 +126,9 @@ const Signup = () => {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           label="Password"
           name="password"
           rules={[
@@ -106,9 +139,9 @@ const Signup = () => {
           ]}
         >
           <Input.Password />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           label="Confirm Password"
           name="confirmPassword"
           dependencies={["password"]}
@@ -130,7 +163,7 @@ const Signup = () => {
           ]}
         >
           <Input.Password />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item
           name="remember"
@@ -149,9 +182,10 @@ const Signup = () => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          {/* <Button type="primary" htmlType="submit">
             Submit
-          </Button>
+          </Button> */}
+          <input type="submit" onClick={submit} />
         </Form.Item>
       </Form>
     </div>
