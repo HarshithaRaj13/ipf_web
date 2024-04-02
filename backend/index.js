@@ -1,3 +1,5 @@
+// backend/server.js
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -8,7 +10,7 @@ app.use(cors());
 
 // Connect to MongoDB
 mongoose.connect(
-  "mongodb+srv://user:Raj13051997@ipfdemo.ubbv7zh.mongodb.net/shop?retryWrites=true&w=majority&appName=react-auth",
+  "mongodb+srv://user:Raj13051997@ipfdemo.ubbv7zh.mongodb.net/user?retryWrites=true&w=majority&appName=react-auth",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

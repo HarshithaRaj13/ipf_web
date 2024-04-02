@@ -9,6 +9,12 @@ const newSchema = new mongoose.Schema({
   },
 });
 
+// const userSchema = new mongoose.Schema({
+//   username: String,
+//   password: String,
+// });
+// const User = mongoose.model("User", userSchema);
+
 const collection = mongoose.model("collection", newSchema);
 
 module.exports = collection;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios"; // Add axios import
 import { useNavigate } from "react-router-dom"; // Add useHistory import
-import image8 from "../assets/image8.jpg";
+import image5 from "../assets/image5.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -12,12 +12,12 @@ const Login = () => {
   const onFinish = async (values) => {
     console.log("Success:", values);
     try {
-      const res = await axios.post("http:/localhost:8000/login", {
+      const res = await axios.post("http://localhost:5000/login", {
         email,
         password,
       });
       if (res.data === "exist") {
-        history.push("/home", { state: { id: email } }); // Redirect to home page
+        history.push("/signup", { state: { id: email } }); // Redirect to signup page
       } else if (res.data === "notexist") {
         alert("User has not signed up");
       }
@@ -33,13 +33,9 @@ const Login = () => {
 
   return (
     <div
+      className="d-flex justify-content-center align-items-center min-vh-100 flex-column"
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        flexDirection: "column",
-        backgroundImage: `url(${image8})`,
+        backgroundImage: `url(${image5})`,
         backgroundSize: "cover",
       }}
     >
@@ -68,8 +64,8 @@ const Login = () => {
         autoComplete="off"
       >
         <Form.Item
-          label="EmailId"
-          name="username"
+          label="Email id"
+          name="email"
           rules={[
             {
               required: true,
