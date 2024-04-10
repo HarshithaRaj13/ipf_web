@@ -23,7 +23,7 @@ const Login = () => {
       }
     } catch (error) {
       console.log(error);
-      alert("Wrong details");
+      alert("User has not signed up");
     }
   };
 
