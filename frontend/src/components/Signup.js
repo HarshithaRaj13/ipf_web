@@ -12,17 +12,18 @@ const Signup = () => {
         "http://localhost:5000/api/users",
         values
       );
+      setMessage("User created successfully");
+      alert("User created successfully");
+    } catch (error) {
+      console.log(error.response.data); // Log the error response to see the actual error message
       if (
-        response.data.error &&
-        response.data.error.includes("duplicate key error")
+        error.response.data.error &&
+        error.response.data.error.includes("duplicate key error")
       ) {
         setMessage("The user already exists. Please provide another username.");
       } else {
-        setMessage("User created successfully");
-        alert("User created successfully");
+        setMessage("Error creating user");
       }
-    } catch (error) {
-      setMessage("Error creating user");
     }
   };
 
